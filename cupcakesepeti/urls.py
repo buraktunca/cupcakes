@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from mainapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",views.frontpage,name="frontpage")
+    path("",views.index,name="frontpage")
 ]
 
 
