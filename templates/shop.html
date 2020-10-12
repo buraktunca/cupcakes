@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Begin -->
+    {% block content %}
+
+
+
+    <div class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__text">
+                        <h2>{{categorys}} Ürünleri</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="breadcrumb__links">
+                        <a href="/">Ana sayfa</a>
+                        <a href="{% url 'categori' categorys.slug %}">{{categorys}}</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if val %}
+      {{val}}
+    {% endif %}
+
+
+
+
+    <!-- Breadcrumb End -->
+
+    <!-- Shop Section Begin -->
+    <section class="shop spad">
+        <div class="container">
+            <div class="shop__option">
+                <div class="row">
+                    <div class="col-lg-9 col-sm-12 col-md-12">
+                        <div class="shop__option__search">
+                            <form action="productfilter" method="post">{% csrf_token %}
+                                {% csrf_token %}
+                              <select name="selection">
+                                  <option value="1">Fiyata Göre Artan</option>
+                                  <option value="2">Fiyata Göre Azalan</option>
+                                  <option value="3">En Çok Satın Alınan</option>
+                              </select>
+                                <input name="search" type="text" placeholder="Bu kategorideki toplam {{count_item}} ürünü arayın..">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+              {% for i in items %}
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="{{i.image.url}}">
+                            <div class="product__label">
+                                <span>{{i.categories.topcategory}}</span>
+                            </div>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="{% url 'productdetail' i.name %}">{{i.name}}</a></h6>
+                            <div class="product__item__price">{{i.price}} TL
+                              {% if i.old_price %}<del>{{i.old_price}} TL</del>{% endif %}</div>
+                            <div class="cart_add">
+                                <a href="#">Sepete Ekle</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+          </div>
+            <div class="shop__last__option">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="shop__pagination">
+                            <a href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#"><span class="arrow_carrot-right"></span></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="shop__last__text">
+                            <p>Showing 1-9 of 10 results</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shop Section End -->
+
+{% endblock %}
